@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
+  <div class="bg-surface dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden hover:shadow-md transition-shadow group flex flex-col">
     <!-- Poster -->
     <div class="relative aspect-[2/3] bg-gray-200 dark:bg-gray-700 overflow-hidden">
       <img 
@@ -12,7 +12,7 @@
         <FilmIcon class="w-12 h-12 opacity-50" />
       </div>
       
-      <div class="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded font-medium flex items-center gap-1">
+      <div class="absolute bottom-2 right-2 bg-black/70 text-on-surface text-xs px-2 py-1 rounded font-medium flex items-center gap-1">
         <Clock class="w-3 h-3" />
         {{ film.duration_minutes }} mnt
       </div>
@@ -53,7 +53,7 @@
         <button 
           @click="rentFilm"
           :disabled="isProcessing"
-          class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition disabled:opacity-70 disabled:cursor-not-allowed"
+          class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-on-surface px-4 py-2 rounded-lg text-sm font-medium transition disabled:opacity-70 disabled:cursor-not-allowed"
         >
           <ShoppingCart class="w-4 h-4" />
           {{ isProcessing ? 'Memproses...' : 'Sewa (48j)' }}

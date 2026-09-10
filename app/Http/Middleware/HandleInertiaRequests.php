@@ -33,6 +33,7 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
+                'favorite_film_ids' => $request->user() ? $request->user()->favorites()->pluck('film_id') : [],
             ],
             'flash' => [
                 'success' => fn () => $request->session()->get('success'),

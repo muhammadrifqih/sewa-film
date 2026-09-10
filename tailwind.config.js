@@ -3,6 +3,7 @@ import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -22,22 +23,28 @@ export default {
                 "headline-xl-mobile": ["plusJakartaSans"], "label-md": ["inter"]
             },
             colors: {
-                "on-error": "#690005", "primary-fixed": "#ffdad5", "on-primary-fixed-variant": "#930007", 
-                "surface-container-high": "#2a2a2c", "surface-tint": "#ffb4aa", "on-background": "#e5e1e4", 
-                "on-tertiary": "#003061", "tertiary-fixed": "#d5e3ff", "primary-container": "#e50914", 
-                "on-surface": "#e5e1e4", "secondary-container": "#ee9800", "surface-container-low": "#1c1b1d", 
-                "surface-bright": "#39393b", "outline": "#af8782", "background": "#131315", 
-                "on-surface-variant": "#e9bcb6", "surface-container-highest": "#353437", "on-primary": "#690003", 
-                "tertiary": "#a7c8ff", "inverse-surface": "#e5e1e4", "primary-fixed-dim": "#ffb4aa", 
-                "on-primary-fixed": "#410001", "inverse-on-surface": "#313032", "inverse-primary": "#c0000c", 
-                "on-tertiary-container": "#f8f9ff", "on-secondary-fixed-variant": "#653e00", "on-error-container": "#ffdad6", 
-                "surface": "#131315", "surface-container-lowest": "#0e0e10", "outline-variant": "#5e3f3b", 
-                "error-container": "#93000a", "tertiary-container": "#0072d7", "on-secondary-fixed": "#2a1700", 
-                "on-tertiary-fixed-variant": "#004689", "surface-variant": "#353437", "on-secondary-container": "#5b3800", 
-                "secondary": "#ffb95f", "secondary-fixed": "#ffddb8", "on-primary-container": "#fff7f6", 
-                "error": "#ffb4ab", "tertiary-fixed-dim": "#a7c8ff", "on-tertiary-fixed": "#001b3c", 
-                "surface-dim": "#131315", "primary": "#ffb4aa", "on-secondary": "#472a00", 
-                "surface-container": "#201f22", "secondary-fixed-dim": "#ffb95f"
+                "primary": "rgb(var(--color-primary) / <alpha-value>)",
+                "on-primary": "rgb(var(--color-on-primary) / <alpha-value>)",
+                "primary-container": "rgb(var(--color-primary-container) / <alpha-value>)",
+                "on-primary-container": "rgb(var(--color-on-primary-container) / <alpha-value>)",
+                "primary-fixed-dim": "rgb(var(--color-primary-fixed-dim) / <alpha-value>)",
+                "secondary": "rgb(var(--color-secondary) / <alpha-value>)",
+                "on-secondary": "rgb(var(--color-on-secondary) / <alpha-value>)",
+                "error": "rgb(var(--color-error) / <alpha-value>)",
+                "on-error": "rgb(var(--color-on-error) / <alpha-value>)",
+                "success": "rgb(var(--color-success) / <alpha-value>)",
+                "background": "rgb(var(--color-background) / <alpha-value>)",
+                "on-background": "rgb(var(--color-on-background) / <alpha-value>)",
+                "surface": "rgb(var(--color-surface) / <alpha-value>)",
+                "on-surface": "rgb(var(--color-on-surface) / <alpha-value>)",
+                "on-surface-variant": "rgb(var(--color-on-surface-variant) / <alpha-value>)",
+                "surface-container-lowest": "rgb(var(--color-surface-container-lowest) / <alpha-value>)",
+                "surface-container-low": "rgb(var(--color-surface-container-low) / <alpha-value>)",
+                "surface-container": "rgb(var(--color-surface-container) / <alpha-value>)",
+                "surface-container-high": "rgb(var(--color-surface-container-high) / <alpha-value>)",
+                "surface-container-highest": "rgb(var(--color-surface-container-highest) / <alpha-value>)",
+                "outline": "rgb(var(--color-outline) / <alpha-value>)",
+                "outline-variant": "rgb(var(--color-outline-variant) / <alpha-value>)",
             },
             spacing: {
                 "space-md": "1rem", "margin-desktop": "3.5rem", "space-2xs": "0.25rem", "margin-mobile": "1rem", 

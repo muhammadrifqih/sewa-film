@@ -23,6 +23,47 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
+Route::get('/explore', function (\Illuminate\Http\Request $request) {
+    $query = Film::with('filmmaker')
+        ->withCount('rentals')
+        ->withAvg('reviews', 'rating')
+        ->where('is_published', true);
+
+    if ($request->has('search')) {
+        $search = $request->search;
+        $query->where('title', 'like', "%{$search}%")
+              ->orWhere('genre', 'like', "%{$search}%");
+    }
+
+    if ($request->has('genre')) {
+        $query->where('genre', $request->genre);
+    }
+
+    // Sort options: latest, popular (rentals), top_rated
+    $sort = $request->get('sort', 'latest');
+    if ($sort === 'popular') {
+        $query->orderByDesc('rentals_count');
+    } elseif ($sort === 'top_rated') {
+        $query->orderByDesc('reviews_avg_rating');
+    } else {
+        $query->latest();
+    }
+
+    $films = $query->paginate(24)->withQueryString();
+
+    // Get unique genres for the filter UI
+    $genres = Film::where('is_published', true)
+        ->whereNotNull('genre')
+        ->distinct()
+        ->pluck('genre');
+
+    return Inertia::render('Explore', [
+        'films' => $films,
+        'genres' => $genres,
+        'filters' => $request->only(['search', 'genre', 'sort'])
+    ]);
+})->name('explore');
+
 Route::get('/films/{film:slug}', function(Film $film) {
     $film->load(['filmmaker', 'reviews.user' => function($q) { $q->latest(); }]);
     $film->loadAvg('reviews', 'rating');
@@ -79,6 +120,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         })->name('dashboard');
     });
 
+    Route::get('/favourites', function () {
+        $films = auth()->user()->favorites()
+            ->with('filmmaker')
+            ->withCount('rentals')
+            ->withAvg('reviews', 'rating')
+            ->paginate(24);
+        return Inertia::render('Favourites', [
+            'films' => $films
+        ]);
+    })->name('favourites');
+
     // Profile Settings
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -111,6 +163,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         return back()->with('success', 'Terima kasih, ulasan Anda berhasil disimpan!');
     })->name('reviews.store');
+
+    Route::post('/films/{film:slug}/favorite', function (App\Models\Film $film) {
+        auth()->user()->favorites()->toggle($film->id);
+        return back();
+    })->name('films.favorite');
 
     Route::get('/watch/{film:slug}', [WatchController::class, 'show'])->name('watch.show');
 });

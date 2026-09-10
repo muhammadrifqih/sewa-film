@@ -77,7 +77,7 @@ onUnmounted(() => {
                     </div>
 
                     <!-- Direct QR Code display -->
-                    <div class="bg-white p-5 rounded-2xl border-4 border-primary shadow-[0_0_30px_rgba(var(--primary-rgb),0.3)]">
+                    <div class="bg-surface p-5 rounded-2xl border-4 border-primary shadow-[0_0_30px_rgba(var(--color-primary),0.3)]">
                         <img 
                             v-if="order.payment_reference" 
                             :src="order.payment_reference" 
@@ -96,7 +96,7 @@ onUnmounted(() => {
                         </p>
                     </div>
 
-                    <Link :href="route('dashboard')" class="w-full inline-flex justify-center items-center px-4 py-3 text-sm font-bold text-on-surface-variant hover:text-white bg-surface-container hover:bg-surface-container-high rounded-xl transition">
+                    <Link :href="route('dashboard')" class="w-full inline-flex justify-center items-center px-4 py-3 text-sm font-bold text-on-surface-variant hover:text-on-surface bg-surface-container hover:bg-surface-container-high rounded-xl transition">
                         Selesaikan Nanti
                     </Link>
                 </div>
@@ -108,7 +108,7 @@ onUnmounted(() => {
                     <h3 class="text-3xl font-display-hero text-on-surface mb-3">Pembayaran Berhasil!</h3>
                     <p class="text-on-surface-variant text-lg mb-10">Terima kasih, pembayaran Anda telah diverifikasi.</p>
                     
-                    <Link :href="route('watch.show', order.film.slug)" class="w-full flex items-center justify-center px-6 py-5 bg-primary hover:bg-primary-fixed-dim text-on-primary font-bold rounded-2xl shadow-[0_4px_20px_rgba(var(--primary-rgb),0.4)] transition-all hover:-translate-y-1 text-lg">
+                    <Link :href="route('watch.show', order.film.slug)" class="w-full flex items-center justify-center px-6 py-5 bg-primary hover:bg-primary-fixed-dim text-on-primary font-bold rounded-2xl shadow-[0_4px_20px_rgba(var(--color-primary),0.4)] transition-all hover:-translate-y-1 text-lg">
                         <Clock class="w-6 h-6 mr-3" />
                         Mulai Menonton Sekarang
                     </Link>

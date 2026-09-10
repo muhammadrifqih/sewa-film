@@ -61,11 +61,11 @@ const deleteFilm = (film) => {
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 flex flex-col gap-2 justify-end items-end h-full">
-                                        <button @click="toggleFilm(film)" class="px-4 py-2 text-xs font-bold text-white rounded-lg transition"
+                                        <button @click="toggleFilm(film)" class="px-4 py-2 text-xs font-bold text-on-surface rounded-lg transition"
                                             :class="film.is_published ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'">
                                             {{ film.is_published ? 'Sembunyikan' : 'Publish/Setujui' }}
                                         </button>
-                                        <button @click="deleteFilm(film)" class="px-4 py-2 text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-lg flex items-center gap-1">
+                                        <button @click="deleteFilm(film)" class="px-4 py-2 text-xs font-bold text-on-surface bg-red-600 hover:bg-red-700 rounded-lg flex items-center gap-1">
                                             <Trash2 class="w-3 h-3" /> Hapus
                                         </button>
                                     </td>

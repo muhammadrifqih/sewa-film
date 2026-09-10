@@ -59,7 +59,7 @@ const submit = () => {
                                 <TextInput
                                     id="title"
                                     type="text"
-                                    class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-white rounded-lg shadow-sm"
+                                    class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-on-surface rounded-lg shadow-sm"
                                     v-model="form.title"
                                     required
                                     :disabled="form.processing"
@@ -72,7 +72,7 @@ const submit = () => {
                                 <InputLabel for="description" value="Sinopsis / Deskripsi Singkat" />
                                 <textarea
                                     id="description"
-                                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-surface-container-lowest dark:text-white shadow-sm focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
+                                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-700 dark:bg-surface-container-lowest dark:text-on-surface shadow-sm focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600"
                                     v-model="form.description"
                                     rows="4"
                                     required
@@ -114,7 +114,7 @@ const submit = () => {
                                         id="duration_minutes"
                                         type="number"
                                         min="1"
-                                        class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-white rounded-lg shadow-sm"
+                                        class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-on-surface rounded-lg shadow-sm"
                                         v-model="form.duration_minutes"
                                         required
                                         :disabled="form.processing"
@@ -127,7 +127,7 @@ const submit = () => {
                                         id="rental_price"
                                         type="number"
                                         min="0"
-                                        class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-white rounded-lg shadow-sm"
+                                        class="mt-1 block w-full bg-surface-container-lowest border-gray-300 dark:border-gray-700 dark:text-on-surface rounded-lg shadow-sm"
                                         v-model="form.rental_price"
                                         required
                                         :disabled="form.processing"
@@ -155,7 +155,7 @@ const submit = () => {
                                         </div>
                                         <div v-else class="relative w-full aspect-[2/3] rounded-lg overflow-hidden group">
                                             <img :src="posterPreview" class="object-cover w-full h-full" />
-                                            <label for="poster" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition text-white text-sm font-bold">
+                                            <label for="poster" class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center cursor-pointer transition text-on-surface text-sm font-bold">
                                                 Ubah Poster
                                                 <input id="poster" name="poster" type="file" class="sr-only" accept="image/*" @change="handlePosterUpload" :disabled="form.processing">
                                             </label>
@@ -178,7 +178,7 @@ const submit = () => {
                         </div>
 
                         <div class="mt-8 flex items-center justify-end gap-3 border-t border-surface-container-high pt-6">
-                            <Link :href="route('sineas.dashboard')" class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:text-gray-900 dark:hover:text-white transition">
+                            <Link :href="route('sineas.dashboard')" class="px-4 py-2 text-sm font-medium text-on-surface-variant hover:text-gray-900 dark:hover:text-on-surface transition">
                                 Batal
                             </Link>
                             <PrimaryButton

@@ -50,7 +50,7 @@ const closeModal = () => {
             </p>
         </header>
 
-        <button @click="confirmUserDeletion" class="bg-error/20 text-error border border-error px-6 py-2 rounded-xl font-bold hover:bg-error hover:text-white transition-colors">
+        <button @click="confirmUserDeletion" class="bg-error/20 text-error border border-error px-6 py-2 rounded-xl font-bold hover:bg-error hover:text-on-surface transition-colors">
             Hapus Akun Permanen
         </button>
 
@@ -92,7 +92,7 @@ const closeModal = () => {
                     </button>
 
                     <button
-                        class="px-6 py-2 rounded-xl font-bold bg-error text-white hover:bg-red-700 transition-colors"
+                        class="px-6 py-2 rounded-xl font-bold bg-error text-on-surface hover:bg-red-700 transition-colors"
                         :class="{ 'opacity-50 cursor-not-allowed': form.processing }"
                         :disabled="form.processing"
                         @click="deleteUser"

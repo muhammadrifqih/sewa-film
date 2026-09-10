@@ -25,65 +25,75 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
+            <div class="mb-8 text-center">
+                <h1 class="text-2xl font-bold text-on-surface tracking-tight mb-2">Buat Akun Baru</h1>
+                <p class="text-sm text-on-surface-variant">Bergabunglah untuk mulai menyewa film</p>
+            </div>
+
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Nama Lengkap" class="text-on-surface-variant font-medium mb-1.5" />
 
                 <TextInput
                     id="name"
                     type="text"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full py-3"
                     v-model="form.name"
                     required
                     autofocus
                     autocomplete="name"
+                    placeholder="Nama Anda"
                 />
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+            <div class="mt-5">
+                <InputLabel for="email" value="Email" class="text-on-surface-variant font-medium mb-1.5" />
 
                 <TextInput
                     id="email"
                     type="email"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full py-3"
                     v-model="form.email"
                     required
                     autocomplete="username"
+                    placeholder="nama@email.com"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+            <div class="mt-5">
+                <InputLabel for="password" value="Password" class="text-on-surface-variant font-medium mb-1.5" />
 
                 <TextInput
                     id="password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full py-3"
                     v-model="form.password"
                     required
                     autocomplete="new-password"
+                    placeholder="Minimal 8 karakter"
                 />
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
-            <div class="mt-4">
+            <div class="mt-5">
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
+                    value="Konfirmasi Password"
+                    class="text-on-surface-variant font-medium mb-1.5"
                 />
 
                 <TextInput
                     id="password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="mt-1 block w-full py-3"
                     v-model="form.password_confirmation"
                     required
                     autocomplete="new-password"
+                    placeholder="Ketik ulang password"
                 />
 
                 <InputError
@@ -92,21 +102,24 @@ const submit = () => {
                 />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 dark:text-gray-400 underline hover:text-gray-900 dark:hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800"
-                >
-                    Already registered?
-                </Link>
-
+            <div class="mt-8 flex flex-col gap-4">
                 <PrimaryButton
-                    class="ms-4"
+                    class="w-full justify-center py-3.5 text-base shadow-[0_0_20px_rgba(var(--color-primary),0.2)]"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    Daftar Sekarang
                 </PrimaryButton>
+
+                <div class="flex items-center justify-center mt-2">
+                    <span class="text-sm text-on-surface-variant mr-2">Sudah punya akun?</span>
+                    <Link
+                        :href="route('login')"
+                        class="text-sm text-primary hover:text-primary-fixed-dim font-bold focus:outline-none transition-colors"
+                    >
+                        Masuk
+                    </Link>
+                </div>
             </div>
         </form>
     </GuestLayout>

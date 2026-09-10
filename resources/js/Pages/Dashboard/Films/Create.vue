@@ -54,7 +54,7 @@ const submit = () => {
 
         <div class="py-12">
             <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
-                <div class="bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
+                <div class="bg-surface dark:bg-gray-800 shadow-sm sm:rounded-lg border border-gray-100 dark:border-gray-700 overflow-hidden">
                     <form @submit.prevent="submit" class="p-8" enctype="multipart/form-data">
                         
                         <div class="space-y-6">
@@ -133,7 +133,7 @@ const submit = () => {
                                         </div>
                                         <div v-else class="relative w-full aspect-[2/3] rounded overflow-hidden">
                                             <img :src="posterPreview" class="object-cover w-full h-full" />
-                                            <label for="poster" class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer transition text-white text-sm font-medium">
+                                            <label for="poster" class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer transition text-on-surface text-sm font-medium">
                                                 Ganti Poster
                                                 <input id="poster" name="poster" type="file" class="sr-only" accept="image/*" @change="handlePosterUpload">
                                             </label>

@@ -200,7 +200,7 @@ const submit = async () => {
                                         </div>
                                         <div v-else class="relative w-full aspect-[2/3] rounded overflow-hidden">
                                             <img :src="posterPreview" class="object-cover w-full h-full" />
-                                            <label for="poster" class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer transition text-white text-sm font-medium">
+                                            <label for="poster" class="absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 flex items-center justify-center cursor-pointer transition text-on-surface text-sm font-medium">
                                                 Ganti Poster
                                                 <input id="poster" name="poster" type="file" class="sr-only" accept="image/*" @change="handlePosterUpload" :disabled="isUploading">
                                             </label>

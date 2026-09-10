@@ -3,7 +3,7 @@
         <!-- Header -->
         <header class="h-20 flex items-center justify-between px-margin-mobile lg:px-margin-desktop bg-surface/85 backdrop-blur-xl border-b border-surface-container shadow-md z-30">
             <div class="flex items-center gap-space-md">
-                <Link :href="route('films.show', film.slug)" class="text-on-surface-variant hover:text-white transition flex items-center gap-2 group">
+                <Link :href="route('films.show', film.slug)" class="text-on-surface-variant hover:text-on-surface transition flex items-center gap-2 group">
                     <ArrowLeft class="w-5 h-5 transition-transform group-hover:-translate-x-1" />
                     <span class="font-label-md hidden sm:inline">Kembali</span>
                 </Link>
@@ -15,7 +15,7 @@
             </div>
             <div v-if="expiresAt" class="text-sm text-on-surface-variant flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-lg border border-surface-container-high">
                 <Clock class="w-4 h-4 text-primary" />
-                <span class="font-label-sm">Sisa Akses: <span class="text-white">{{ timeRemaining }}</span></span>
+                <span class="font-label-sm">Sisa Akses: <span class="text-on-surface">{{ timeRemaining }}</span></span>
             </div>
             <div v-else class="text-sm text-secondary flex items-center gap-2 font-label-sm bg-secondary-container/10 px-3 py-1.5 rounded-lg border border-secondary/20">
                 <span>Akses Tanpa Batas</span>
@@ -57,7 +57,7 @@
                     class="pointer-events-none absolute top-6 right-8 opacity-40 z-50 flex items-center select-none"
                     aria-hidden="true"
                 >
-                    <span class="text-2xl font-display-hero tracking-widest text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
+                    <span class="text-2xl font-display-hero tracking-widest text-on-surface drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                         CineRent
                     </span>
                     <div class="ml-2 px-1.5 py-0.5 bg-primary-container rounded text-[10px] font-bold text-on-primary-container tracking-widest uppercase shadow-lg border border-primary-fixed-dim/30">

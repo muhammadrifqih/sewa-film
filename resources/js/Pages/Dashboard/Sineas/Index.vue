@@ -52,12 +52,12 @@ const deleteFilm = (film) => {
                 <div class="flex flex-col md:flex-row items-center justify-between">
                     <div class="flex items-center gap-6">
                         <!-- Avatar Placeholder -->
-                        <div class="h-20 w-20 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-lg border-4 border-gray-800">
+                        <div class="h-20 w-20 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-on-surface text-3xl font-bold shadow-lg border-4 border-gray-800">
                             {{ filmmaker.name.charAt(0).toUpperCase() }}
                         </div>
                         <div>
                             <div class="flex items-center gap-2 mb-1">
-                                <h1 class="text-3xl font-bold text-white">{{ filmmaker.name }}</h1>
+                                <h1 class="text-3xl font-bold text-on-surface">{{ filmmaker.name }}</h1>
                                 <Star class="w-5 h-5 text-yellow-400 fill-current" />
                             </div>
                             <p class="text-on-surface-variant text-sm">Dashboard Kreator • Bergabung {{ new Date(filmmaker.created_at).getFullYear() }}</p>
@@ -67,7 +67,7 @@ const deleteFilm = (film) => {
                     <div class="mt-8 md:mt-0">
                         <Link
                             :href="route('sineas.films.create')"
-                            class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-xl font-bold text-sm text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition shadow-lg shadow-blue-900/50"
+                            class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-xl font-bold text-sm text-on-surface hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition shadow-lg shadow-blue-900/50"
                         >
                             <Plus class="w-5 h-5 mr-2" />
                             Rilis Film Baru
@@ -83,7 +83,7 @@ const deleteFilm = (film) => {
                         </div>
                         <div>
                             <p class="text-on-surface-variant text-sm font-medium">Total Karya Rilis</p>
-                            <h3 class="text-2xl font-bold text-white">{{ films.length }} Film</h3>
+                            <h3 class="text-2xl font-bold text-on-surface">{{ films.length }} Film</h3>
                         </div>
                     </div>
                     
@@ -93,7 +93,7 @@ const deleteFilm = (film) => {
                         </div>
                         <div>
                             <p class="text-on-surface-variant text-sm font-medium">Total Tiket Terjual</p>
-                            <h3 class="text-2xl font-bold text-white flex items-baseline gap-2">
+                            <h3 class="text-2xl font-bold text-on-surface flex items-baseline gap-2">
                                 {{ totalTickets }} <span class="text-sm font-normal text-on-surface-variant">Tiket</span>
                             </h3>
                         </div>
@@ -105,7 +105,7 @@ const deleteFilm = (film) => {
                         </div>
                         <div>
                             <p class="text-on-surface-variant text-sm font-medium">Estimasi Pendapatan</p>
-                            <h3 class="text-2xl font-bold text-white">Rp {{ formatPrice(estimatedRevenue) }}</h3>
+                            <h3 class="text-2xl font-bold text-on-surface">Rp {{ formatPrice(estimatedRevenue) }}</h3>
                         </div>
                     </div>
                 </div>

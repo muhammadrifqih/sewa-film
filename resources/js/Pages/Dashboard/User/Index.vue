@@ -55,7 +55,7 @@ const formatDate = (date) => {
                     <p class="text-on-surface-variant font-body-md mb-8 max-w-md mx-auto">
                         Anda belum menyewa film apapun, atau masa sewa film Anda sebelumnya telah habis (melewati 48 jam).
                     </p>
-                    <Link :href="route('home')" class="inline-flex items-center px-6 py-3 bg-surface-container-high text-on-surface border border-outline-variant font-label-md rounded-xl hover:text-white hover:border-white transition-colors">
+                    <Link :href="route('home')" class="inline-flex items-center px-6 py-3 bg-surface-container-high text-on-surface border border-outline-variant font-label-md rounded-xl hover:text-on-surface hover:border-white transition-colors">
                         Cari Film Menarik Sekarang
                     </Link>
                 </div>
@@ -70,7 +70,7 @@ const formatDate = (date) => {
 
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 flex items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 backdrop-blur-sm">
-                                <Link :href="route('watch.show', rental.film.slug)" class="flex flex-col items-center text-white scale-90 group-hover:scale-100 transition-transform">
+                                <Link :href="route('watch.show', rental.film.slug)" class="flex flex-col items-center text-on-surface scale-90 group-hover:scale-100 transition-transform">
                                     <PlayCircle class="w-16 h-16 mb-2 text-primary drop-shadow-[0_0_10px_rgba(229,9,20,0.8)]" />
                                     <span class="font-label-sm tracking-widest uppercase drop-shadow">Tonton Sekarang</span>
                                 </Link>

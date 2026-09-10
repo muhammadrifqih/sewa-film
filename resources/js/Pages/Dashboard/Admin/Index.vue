@@ -19,7 +19,7 @@ defineProps({
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center gap-3 mb-6">
                     <ShieldCheck class="w-8 h-8 text-blue-500" />
-                    <h1 class="text-3xl font-bold text-white">Pusat Kendali Admin</h1>
+                    <h1 class="text-3xl font-bold text-on-surface">Pusat Kendali Admin</h1>
                 </div>
                 <p class="text-on-surface-variant text-lg max-w-2xl">
                     Pantau kesehatan platform SIEAS TVOD, kelola pengguna, dan awasi seluruh transaksi serta film yang diunggah oleh Sineas.
@@ -36,7 +36,7 @@ defineProps({
                     <div class="bg-surface-container rounded-2xl p-6 shadow-xl border border-surface-container-high relative overflow-hidden group hover:-translate-y-1 transition duration-300">
                         <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-blue-100 dark:bg-blue-900/30 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition"></div>
                         <div class="flex items-center relative z-10">
-                            <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 text-white rounded-xl shadow-lg mr-5">
+                            <div class="p-4 bg-gradient-to-br from-blue-500 to-blue-700 text-on-surface rounded-xl shadow-lg mr-5">
                                 <Users class="w-7 h-7" />
                             </div>
                             <div>
@@ -50,7 +50,7 @@ defineProps({
                     <div class="bg-surface-container rounded-2xl p-6 shadow-xl border border-surface-container-high relative overflow-hidden group hover:-translate-y-1 transition duration-300">
                         <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-green-100 dark:bg-green-900/30 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition"></div>
                         <div class="flex items-center relative z-10">
-                            <div class="p-4 bg-gradient-to-br from-green-500 to-green-700 text-white rounded-xl shadow-lg mr-5">
+                            <div class="p-4 bg-gradient-to-br from-green-500 to-green-700 text-on-surface rounded-xl shadow-lg mr-5">
                                 <Film class="w-7 h-7" />
                             </div>
                             <div>
@@ -64,7 +64,7 @@ defineProps({
                     <div class="bg-surface-container rounded-2xl p-6 shadow-xl border border-surface-container-high relative overflow-hidden group hover:-translate-y-1 transition duration-300">
                         <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-purple-100 dark:bg-purple-900/30 rounded-full blur-2xl opacity-50 group-hover:opacity-100 transition"></div>
                         <div class="flex items-center relative z-10">
-                            <div class="p-4 bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-xl shadow-lg mr-5">
+                            <div class="p-4 bg-gradient-to-br from-purple-500 to-purple-700 text-on-surface rounded-xl shadow-lg mr-5">
                                 <ShoppingCart class="w-7 h-7" />
                             </div>
                             <div>
@@ -101,7 +101,7 @@ defineProps({
                     </div>
 
                     <!-- Quick Shortcuts -->
-                    <div class="bg-gradient-to-br from-indigo-900 to-gray-900 rounded-2xl shadow-xl border border-gray-800 p-8 text-white">
+                    <div class="bg-gradient-to-br from-indigo-900 to-gray-900 rounded-2xl shadow-xl border border-gray-800 p-8 text-on-surface">
                         <div class="flex items-center gap-3 mb-6 border-b border-gray-700 pb-4">
                             <Settings class="w-6 h-6 text-indigo-400" />
                             <h3 class="text-xl font-bold">Pintasan Manajemen</h3>
@@ -109,15 +109,15 @@ defineProps({
                         <p class="text-on-surface-variant mb-8">Ini adalah ruang kerja (workspace) Super Admin. Fitur manajemen penuh akan ditambahkan pada fase pengembangan selanjutnya.</p>
                         
                         <div class="grid grid-cols-2 gap-4">
-                            <Link :href="route('admin.users')" class="flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition cursor-pointer">
+                            <Link :href="route('admin.users')" class="flex flex-col items-center justify-center p-6 bg-surface/5 border border-white/10 rounded-xl hover:bg-surface/10 transition cursor-pointer">
                                 <Users class="w-8 h-8 mb-3 text-indigo-300" />
                                 <span class="font-medium">Kelola User</span>
                             </Link>
-                            <Link :href="route('admin.films')" class="flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition cursor-pointer">
+                            <Link :href="route('admin.films')" class="flex flex-col items-center justify-center p-6 bg-surface/5 border border-white/10 rounded-xl hover:bg-surface/10 transition cursor-pointer">
                                 <Film class="w-8 h-8 mb-3 text-pink-300" />
                                 <span class="font-medium">Validasi Film</span>
                             </Link>
-                            <Link :href="route('admin.transactions')" class="flex flex-col items-center justify-center p-6 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition cursor-pointer col-span-2">
+                            <Link :href="route('admin.transactions')" class="flex flex-col items-center justify-center p-6 bg-surface/5 border border-white/10 rounded-xl hover:bg-surface/10 transition cursor-pointer col-span-2">
                                 <ShoppingCart class="w-8 h-8 mb-3 text-purple-300" />
                                 <span class="font-medium">Data Transaksi</span>
                             </Link>
