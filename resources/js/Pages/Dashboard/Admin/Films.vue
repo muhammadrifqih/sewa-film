@@ -1,14 +1,16 @@
 <script setup>
 import MainLayout from '@/Layouts/MainLayout.vue';
-import { Head, router } from '@inertiajs/vue3';
-import { Film, CheckCircle, XCircle, Trash2 } from 'lucide-vue-next';
+import { Head, router, Link } from '@inertiajs/vue3';
+import { Film, CheckCircle, XCircle, Trash2, Eye, Clock } from 'lucide-vue-next';
 
 defineProps({
     films: Array,
 });
 
-const toggleFilm = (film) => {
-    router.post(route('admin.films.toggle', film.id), {}, { preserveScroll: true });
+const updateApproval = (film, status) => {
+    if (confirm(`Ubah status persetujuan film menjadi ${status.toUpperCase()}?`)) {
+        router.post(route('admin.films.approval', film.id), { approval_status: status }, { preserveScroll: true });
+    }
 };
 
 const deleteFilm = (film) => {
@@ -39,14 +41,15 @@ const deleteFilm = (film) => {
                                     <th scope="col" class="px-6 py-4">Judul Film</th>
                                     <th scope="col" class="px-6 py-4">Sineas</th>
                                     <th scope="col" class="px-6 py-4">Harga Sewa</th>
-                                    <th scope="col" class="px-6 py-4">Status Publish</th>
+                                    <th scope="col" class="px-6 py-4">Status Rilis (Sineas)</th>
+                                    <th scope="col" class="px-6 py-4">Status Approval</th>
                                     <th scope="col" class="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="film in films" :key="film.id" class="bg-surface-container border-b border-surface-container-high hover:bg-gray-50 dark:hover:bg-gray-700/50">
                                     <td class="px-6 py-4">
-                                        <img v-if="film.poster_path" :src="'/storage/' + film.poster_path" class="w-16 h-24 object-cover rounded shadow" />
+                                        <img v-if="film.poster_path" :src="film.poster_path" class="w-16 h-24 object-cover rounded shadow" />
                                         <div v-else class="w-16 h-24 bg-gray-200 dark:bg-gray-700 rounded flex items-center justify-center">N/A</div>
                                     </td>
                                     <td class="px-6 py-4 font-bold text-on-surface">{{ film.title }}</td>
@@ -56,16 +59,34 @@ const deleteFilm = (film) => {
                                         <span v-if="film.is_published" class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-700">
                                             <CheckCircle class="w-3 h-3" /> Dipublikasikan
                                         </span>
-                                        <span v-else class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
+                                        <span v-else class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-gray-100 text-gray-700">
                                             <XCircle class="w-3 h-3" /> Disembunyikan
                                         </span>
                                     </td>
+                                    <td class="px-6 py-4">
+                                        <span v-if="film.approval_status === 'approved'" class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">
+                                            <CheckCircle class="w-3 h-3" /> Approved
+                                        </span>
+                                        <span v-else-if="film.approval_status === 'rejected'" class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">
+                                            <XCircle class="w-3 h-3" /> Rejected
+                                        </span>
+                                        <span v-else class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-700">
+                                            <Clock class="w-3 h-3" /> Pending
+                                        </span>
+                                    </td>
                                     <td class="px-6 py-4 flex flex-col gap-2 justify-end items-end h-full">
-                                        <button @click="toggleFilm(film)" class="px-4 py-2 text-xs font-bold text-on-surface rounded-lg transition"
-                                            :class="film.is_published ? 'bg-orange-500 hover:bg-orange-600' : 'bg-green-600 hover:bg-green-700'">
-                                            {{ film.is_published ? 'Sembunyikan' : 'Publish/Setujui' }}
-                                        </button>
-                                        <button @click="deleteFilm(film)" class="px-4 py-2 text-xs font-bold text-on-surface bg-red-600 hover:bg-red-700 rounded-lg flex items-center gap-1">
+                                        <Link :href="route('watch.show', film.slug)" class="px-4 py-2 w-full text-center text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg flex items-center justify-center gap-1 transition">
+                                            <Eye class="w-3 h-3" /> Preview
+                                        </Link>
+                                        <div class="flex gap-2 w-full mt-1">
+                                            <button v-if="film.approval_status !== 'approved'" @click="updateApproval(film, 'approved')" class="flex-1 px-2 py-2 text-xs font-bold text-white bg-green-600 hover:bg-green-700 rounded-lg transition">
+                                                Setujui
+                                            </button>
+                                            <button v-if="film.approval_status !== 'rejected'" @click="updateApproval(film, 'rejected')" class="flex-1 px-2 py-2 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-lg transition">
+                                                Tolak
+                                            </button>
+                                        </div>
+                                        <button @click="deleteFilm(film)" class="px-4 py-2 mt-1 w-full text-center text-xs font-bold text-white bg-red-600 hover:bg-red-700 rounded-lg flex items-center justify-center gap-1 transition">
                                             <Trash2 class="w-3 h-3" /> Hapus
                                         </button>
                                     </td>

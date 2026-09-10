@@ -26,6 +26,7 @@ class Film extends Model
         'duration_minutes',
         'rental_price',
         'is_published',
+        'approval_status',
     ];
 
     protected $casts = [

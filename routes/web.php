@@ -13,6 +13,7 @@ Route::get('/', function () {
         ->withCount('rentals')
         ->withAvg('reviews', 'rating')
         ->where('is_published', true)
+        ->where('approval_status', 'approved')
         ->latest()
         ->get();
 
@@ -27,7 +28,8 @@ Route::get('/explore', function (\Illuminate\Http\Request $request) {
     $query = Film::with('filmmaker')
         ->withCount('rentals')
         ->withAvg('reviews', 'rating')
-        ->where('is_published', true);
+        ->where('is_published', true)
+        ->where('approval_status', 'approved');
 
     if ($request->has('search')) {
         $search = $request->search;
@@ -53,6 +55,7 @@ Route::get('/explore', function (\Illuminate\Http\Request $request) {
 
     // Get unique genres for the filter UI
     $genres = Film::where('is_published', true)
+        ->where('approval_status', 'approved')
         ->whereNotNull('genre')
         ->distinct()
         ->pluck('genre');
@@ -65,6 +68,14 @@ Route::get('/explore', function (\Illuminate\Http\Request $request) {
 })->name('explore');
 
 Route::get('/films/{film:slug}', function(Film $film) {
+    $isOwner = auth()->check() && $film->filmmaker && auth()->user()->id === $film->filmmaker->user_id;
+    $isAdmin = auth()->check() && auth()->user()->role === 'admin';
+    $isPublic = $film->is_published && $film->approval_status === 'approved';
+
+    if (!$isPublic && !$isOwner && !$isAdmin) {
+        abort(404);
+    }
+
     $film->load(['filmmaker', 'reviews.user' => function($q) { $q->latest(); }]);
     $film->loadAvg('reviews', 'rating');
     $film->loadCount('rentals');
@@ -92,7 +103,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/users/{user}/role', [\App\Http\Controllers\Dashboard\AdminController::class, 'updateUserRole'])->name('users.role');
         
         Route::get('/films', [\App\Http\Controllers\Dashboard\AdminController::class, 'films'])->name('films');
-        Route::post('/films/{film}/toggle', [\App\Http\Controllers\Dashboard\AdminController::class, 'toggleFilm'])->name('films.toggle');
+        Route::post('/films/{film}/approval', [\App\Http\Controllers\Dashboard\AdminController::class, 'updateFilmApproval'])->name('films.approval');
         Route::delete('/films/{film}', [\App\Http\Controllers\Dashboard\AdminController::class, 'destroyFilm'])->name('films.destroy');
         
         Route::get('/transactions', [\App\Http\Controllers\Dashboard\AdminController::class, 'transactions'])->name('transactions');

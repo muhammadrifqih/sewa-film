@@ -1,21 +1,12 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { Link, usePage, router } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 
 const page = usePage();
 const mobileMenuOpen = ref(false);
 const isDark = ref(true);
-const searchQuery = ref(page.props.filters?.search || '');
-
-const handleSearch = () => {
-    if (searchQuery.value) {
-        router.get(route('explore'), { search: searchQuery.value });
-    } else {
-        router.get(route('explore'));
-    }
-};
 
 const toggleMobileMenu = () => {
     mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -39,7 +30,7 @@ onMounted(() => {
 
 <template>
     <div class="flex h-screen bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container overflow-hidden relative transition-colors duration-300">
-        
+
         <!-- Mobile Sidebar Overlay -->
         <div v-if="mobileMenuOpen" @click="toggleMobileMenu" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"></div>
 
@@ -58,20 +49,20 @@ onMounted(() => {
 
             <!-- Navigation Links -->
             <nav class="flex-1 px-4 pb-8 space-y-8 mt-2">
-                
+
                 <!-- Menu Group 1 -->
                 <div class="space-y-1">
                     <Link :href="route('home')" class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors font-medium" :class="route().current('home') ? 'bg-surface-container-high text-on-surface font-bold border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface'">
                         <span class="material-symbols-outlined text-xl">home</span> Home
                     </Link>
-                    <Link :href="route('explore')" class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors font-medium" :class="route().current('explore') ? 'bg-surface-container-high text-on-surface font-bold border-l-4 border-primary' : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface border-l-4 border-transparent'">
+                    <Link :href="route('home')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
                         <span class="material-symbols-outlined text-xl">explore</span> Explore
                     </Link>
-                    <Link :href="route('explore')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
+                    <Link :href="route('home')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
                         <span class="material-symbols-outlined text-xl">category</span> Genres
                     </Link>
-                    <Link :href="route('favourites')" v-if="page.props.auth.user" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4" :class="route().current('favourites') ? 'bg-surface-container-high text-on-surface font-bold border-primary' : 'border-transparent'">
-                        <span class="material-symbols-outlined text-xl">favorite</span> Favourites
+                    <Link :href="route('dashboard')" v-if="page.props.auth.user" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
+                        <span class="material-symbols-outlined text-xl">bookmark</span> Favourites
                     </Link>
                 </div>
 
@@ -82,12 +73,13 @@ onMounted(() => {
                     <Link :href="route('dashboard')" v-if="page.props.auth.user" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
                         <span class="material-symbols-outlined text-xl">play_circle</span> Continue Watching
                     </Link>
-                    <Link :href="route('explore', {sort: 'latest'})" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
+                    <Link :href="route('home')" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
                         <span class="material-symbols-outlined text-xl">schedule</span> Recently Added
                     </Link>
                     <Link v-if="page.props.auth.user" :href="route('dashboard')" class="flex items-center gap-4 px-4 py-3 rounded-xl transition-colors font-medium border-l-4" :class="route().current('user.dashboard') || route().current('dashboard') || route().current('admin.dashboard') || route().current('sineas.dashboard') ? 'bg-surface-container-high text-on-surface font-bold border-primary' : 'text-on-surface-variant hover:bg-surface-container hover:text-on-surface border-transparent'">
                         <span class="material-symbols-outlined text-xl">video_library</span> My Collections
                     </Link>
+
                     <!-- <Link :href="route('dashboard')" v-if="page.props.auth.user" class="flex items-center gap-4 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-medium border-l-4 border-transparent">
                         <span class="material-symbols-outlined text-xl">download</span> Downloads
                     </Link> -->
@@ -109,7 +101,7 @@ onMounted(() => {
 
         <!-- Main Content Area -->
         <div class="flex-1 flex flex-col min-w-0 overflow-hidden relative w-full">
-            
+
             <!-- Topbar -->
             <header class="h-20 lg:h-24 flex-shrink-0 flex items-center justify-between px-4 lg:px-8 z-10 sticky top-0 bg-background/90 backdrop-blur-xl transition-colors duration-300">
                 <!-- Search Bar -->
@@ -117,16 +109,10 @@ onMounted(() => {
                     <button @click="toggleMobileMenu" class="lg:hidden text-on-surface-variant hover:text-on-surface p-2 focus:outline-none">
                         <span class="material-symbols-outlined text-3xl">menu</span>
                     </button>
-                    
+
                     <div class="hidden md:flex relative w-full items-center">
                         <span class="material-symbols-outlined absolute left-4 text-on-surface-variant pointer-events-none">search</span>
-                        <input 
-                            v-model="searchQuery" 
-                            @keyup.enter="handleSearch" 
-                            class="w-full bg-surface-container-low border border-surface-container text-on-surface placeholder-on-surface-variant font-body-md pl-12 pr-4 py-3.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-primary-container focus:bg-surface-container transition-all" 
-                            placeholder="Movies, series, shows..." 
-                            type="search"
-                        />
+                        <input class="w-full bg-surface-container-low border border-surface-container text-on-surface placeholder-on-surface-variant font-body-md pl-12 pr-4 py-3.5 rounded-2xl focus:outline-none focus:ring-1 focus:ring-primary-container focus:bg-surface-container transition-all" placeholder="Movies, series, shows..." type="search"/>
                     </div>
                 </div>
 

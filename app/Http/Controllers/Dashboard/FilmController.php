@@ -31,15 +31,18 @@ class FilmController extends Controller
             ->where('payment_status', 'paid')
             ->count();
 
-        $estimatedRevenue = \App\Models\Order::whereIn('film_id', $filmIds)
+        $grossRevenue = \App\Models\Order::whereIn('film_id', $filmIds)
             ->where('payment_status', 'paid')
             ->sum('amount');
+            
+        $netRevenue = $grossRevenue * 0.5;
 
         return Inertia::render('Dashboard/Sineas/Index', [
             'films' => $films,
             'filmmaker' => $filmmaker,
             'totalTickets' => $totalTickets,
-            'estimatedRevenue' => $estimatedRevenue
+            'grossRevenue' => $grossRevenue,
+            'netRevenue' => $netRevenue
         ]);
     }
 

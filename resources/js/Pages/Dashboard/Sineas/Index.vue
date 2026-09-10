@@ -16,7 +16,11 @@ const props = defineProps({
         type: Number,
         default: 0,
     },
-    estimatedRevenue: {
+    grossRevenue: {
+        type: Number,
+        default: 0,
+    },
+    netRevenue: {
         type: Number,
         default: 0,
     }
@@ -76,36 +80,45 @@ const deleteFilm = (film) => {
                 </div>
 
                 <!-- Stats Widgets -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center">
-                        <div class="bg-blue-900/50 text-blue-400 p-4 rounded-xl mr-5">
+                <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-12">
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center group hover:-translate-y-1 transition duration-300">
+                        <div class="bg-blue-900/50 text-blue-400 p-4 rounded-xl mr-5 group-hover:bg-blue-500 group-hover:text-white transition">
                             <Film class="w-6 h-6" />
                         </div>
                         <div>
-                            <p class="text-on-surface-variant text-sm font-medium">Total Karya Rilis</p>
-                            <h3 class="text-2xl font-bold text-on-surface">{{ films.length }} Film</h3>
+                            <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Karya Rilis</p>
+                            <h3 class="text-2xl font-bold text-on-surface">{{ films.length }}</h3>
                         </div>
                     </div>
                     
-                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center">
-                        <div class="bg-green-900/50 text-green-400 p-4 rounded-xl mr-5">
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center group hover:-translate-y-1 transition duration-300">
+                        <div class="bg-green-900/50 text-green-400 p-4 rounded-xl mr-5 group-hover:bg-green-500 group-hover:text-white transition">
                             <TrendingUp class="w-6 h-6" />
                         </div>
                         <div>
-                            <p class="text-on-surface-variant text-sm font-medium">Total Tiket Terjual</p>
-                            <h3 class="text-2xl font-bold text-on-surface flex items-baseline gap-2">
-                                {{ totalTickets }} <span class="text-sm font-normal text-on-surface-variant">Tiket</span>
-                            </h3>
+                            <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Tiket Terjual</p>
+                            <h3 class="text-2xl font-bold text-on-surface">{{ totalTickets }}</h3>
                         </div>
                     </div>
 
-                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center">
-                        <div class="bg-purple-900/50 text-purple-400 p-4 rounded-xl mr-5">
-                            <Wallet class="w-6 h-6" />
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-6 flex items-center group hover:-translate-y-1 transition duration-300">
+                        <div class="bg-purple-900/50 text-purple-400 p-4 rounded-xl mr-5 group-hover:bg-purple-500 group-hover:text-white transition">
+                            <span class="material-symbols-outlined text-2xl">payments</span>
                         </div>
                         <div>
-                            <p class="text-on-surface-variant text-sm font-medium">Estimasi Pendapatan</p>
-                            <h3 class="text-2xl font-bold text-on-surface">Rp {{ formatPrice(estimatedRevenue) }}</h3>
+                            <p class="text-on-surface-variant text-xs font-bold uppercase tracking-wider mb-1">Pendapatan Kotor</p>
+                            <h3 class="text-xl font-bold text-on-surface">Rp {{ formatPrice(grossRevenue) }}</h3>
+                        </div>
+                    </div>
+
+                    <!-- Net Revenue (Sineas 50%) -->
+                    <div class="bg-gray-800/50 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 flex items-center group hover:-translate-y-1 transition duration-300 ring-1 ring-primary/20">
+                        <div class="bg-primary/20 text-primary p-4 rounded-xl mr-5 group-hover:bg-primary group-hover:text-on-primary transition">
+                            <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+                        </div>
+                        <div>
+                            <p class="text-primary text-xs font-bold uppercase tracking-wider mb-1">Laba Bersih (50%)</p>
+                            <h3 class="text-xl font-black text-primary">Rp {{ formatPrice(netRevenue) }}</h3>
                         </div>
                     </div>
                 </div>
@@ -140,6 +153,7 @@ const deleteFilm = (film) => {
                                         <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider">Judul & Poster</th>
                                         <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider">Harga (48 Jam)</th>
                                         <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider">Mux Status</th>
+                                        <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider">Status Approval</th>
                                         <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider">Visibilitas</th>
                                         <th class="py-4 px-6 font-semibold text-sm text-gray-600 dark:text-on-surface-variant uppercase tracking-wider text-right">Tindakan</th>
                                     </tr>
@@ -171,6 +185,17 @@ const deleteFilm = (film) => {
                                                 <div class="w-1.5 h-1.5 bg-yellow-500 rounded-full mr-2 animate-pulse"></div> Processing
                                             </span>
                                             <span v-else class="text-xs text-on-surface-variant">Local</span>
+                                        </td>
+                                        <td class="py-4 px-6">
+                                            <span v-if="film.approval_status === 'approved'" class="inline-flex items-center text-xs font-bold text-green-600">
+                                                Disetujui Admin
+                                            </span>
+                                            <span v-else-if="film.approval_status === 'rejected'" class="inline-flex items-center text-xs font-bold text-error">
+                                                Ditolak Admin
+                                            </span>
+                                            <span v-else class="inline-flex items-center text-xs font-bold text-yellow-600">
+                                                Menunggu Review
+                                            </span>
                                         </td>
                                         <td class="py-4 px-6">
                                             <button 

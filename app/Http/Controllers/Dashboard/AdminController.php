@@ -13,10 +13,21 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
+        $grossRevenue = Order::where('payment_status', 'paid')->sum('amount');
+        $netRevenue = $grossRevenue * 0.5;
+        $totalOrders = Order::where('payment_status', 'paid')->count();
+
         return Inertia::render('Dashboard/Admin/Index', [
             'totalUsers' => User::count(),
             'totalFilms' => Film::count(),
-            'totalOrders' => Order::count(),
+            'totalOrders' => $totalOrders,
+            'grossRevenue' => $grossRevenue,
+            'netRevenue' => $netRevenue,
+            'recentTransactions' => Order::with(['user', 'film'])
+                ->where('payment_status', 'paid')
+                ->latest()
+                ->take(5)
+                ->get(),
         ]);
     }
 
@@ -47,14 +58,17 @@ class AdminController extends Controller
         ]);
     }
 
-    public function toggleFilm(Film $film)
+    public function updateFilmApproval(Request $request, Film $film)
     {
+        $validated = $request->validate([
+            'approval_status' => 'required|in:pending,approved,rejected'
+        ]);
+
         $film->update([
-            'is_published' => !$film->is_published
+            'approval_status' => $validated['approval_status']
         ]);
         
-        $status = $film->is_published ? 'dipublikasikan' : 'disembunyikan';
-        return back()->with('success', "Film berhasil $status.");
+        return back()->with('success', "Status persetujuan film berhasil diubah menjadi {$validated['approval_status']}.");
     }
     
     public function destroyFilm(Film $film)
